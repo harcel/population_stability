@@ -12,7 +12,7 @@ setup(
     url="http://pypi.python.org/pypi/PackageName/",
     license="LICENSE",
     description="An awesome package that does something",
-    long_description=open("README.txt").read(),
+    long_description=open("README.md").read(),
     install_requires=[
         "numpy >= 1.0.0",
         "pytest",

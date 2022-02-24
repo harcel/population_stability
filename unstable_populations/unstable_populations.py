@@ -12,7 +12,7 @@ import pandas as pd
 ################################################
 
 
-def upi(pop1, pop2, weight=True, bin_data=False, verbose=True):
+def upi(pop1, pop2, weight=True, bin_data=False, verbose=False):
     """
     Docstring focusing on UPI only
     """
@@ -25,7 +25,7 @@ def upi(pop1, pop2, weight=True, bin_data=False, verbose=True):
 ################################################
 
 
-def psi(pop1, pop2, bin_data=False, verbose=True):
+def psi(pop1, pop2, bin_data=False, verbose=False):
     """
     Docstring focusing on psi only
     """
@@ -215,9 +215,9 @@ if __name__ == "__main__":
 
     # Dict as entry
     print("------")
-    flat = {"0": 10, "1": 10, "2": "10", "3": 10}
-    noise = {"0": 11, "1": 9, "2": "11", "3": 9}
-    diff = {"0": 10, "1": 10, "2": "10", "4": 10}
+    flat = {"0": 10, "1": 10, "2": 10, "3": 10}
+    noise = {"0": 11, "1": 9, "2": 11, "3": 9}
+    diff = {"0": 10, "1": 10, "2": 10, "4": 10}
 
     print(upi(flat, noise))
     print(upi(flat, diff))
