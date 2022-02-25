@@ -28,33 +28,47 @@ import pandas as pd
 verbose_doc = "verbose: boolean. Set to True for verbosity."
 
 
-def upi(pop1, pop2, weight=True, bin_data=False, verbose=False):
+def upi(pop1, pop2, weight=True, bin_data=False, bins=10, verbose=False):
     """
     Docstring focusing on UPI only.
     """
 
     return _indicator(
-        pop1, pop2, weight=weight, plus1=True, bin_data=bin_data, verbose=verbose
+        pop1,
+        pop2,
+        weight=weight,
+        plus1=True,
+        bin_data=bin_data,
+        bins=bins,
+        verbose=verbose,
     )
 
 
 ################################################
 
 
-def psi(pop1, pop2, bin_data=False, verbose=False):
+def psi(pop1, pop2, bin_data=False, bins=10, verbose=False):
     """
     Docstring focusing on psi only
     """
 
     return _indicator(
-        pop1, pop2, weight=False, plus1=False, bin_data=bin_data, verbose=verbose
+        pop1,
+        pop2,
+        weight=False,
+        plus1=False,
+        bin_data=bin_data,
+        bins=bins,
+        verbose=verbose,
     )
 
 
 ################################################
 
 
-def _indicator(pop1, pop2, weight=True, plus1=True, bin_data=False, verbose=False):
+def _indicator(
+    pop1, pop2, weight=True, plus1=True, bin_data=False, bins=10, verbose=False
+):
     """
     Versatile code to calculate any measure we
     enable: psi, upi, weihgted or not, etc.
@@ -62,7 +76,7 @@ def _indicator(pop1, pop2, weight=True, plus1=True, bin_data=False, verbose=Fals
     For definitions, see docstring of upi/psi.
     """
 
-    a, b = _prepare_data(pop1, pop2, bin_data=bin_data, verbose=verbose)
+    a, b = _prepare_data(pop1, pop2, bin_data=bin_data, bins=bins, verbose=verbose)
 
     atot = a.sum()
     btot = b.sum()
@@ -89,7 +103,7 @@ def _indicator(pop1, pop2, weight=True, plus1=True, bin_data=False, verbose=Fals
 ################################################
 
 
-def _prepare_data(pop1, pop2, bin_data=False, verbose=False):
+def _prepare_data(pop1, pop2, bin_data=False, bins=10, verbose=False):
     """
     Check the contents of pop1 and pop2 and decide
     what to do. Return two np.arrays with the binned
@@ -118,7 +132,7 @@ def _prepare_data(pop1, pop2, bin_data=False, verbose=False):
 
     if bin_data:
         if tp1 in (np.ndarray, list):
-            a, b = _bin_data(pop1, pop2, bins=bin_data, verbose=verbose)
+            a, b = _bin_data(pop1, pop2, bins=bins, verbose=verbose)
         else:
             raise TypeError("Data to be binned should be an np.ndarray or list!")
     else:
