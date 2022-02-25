@@ -1,10 +1,24 @@
 # Unstable Populations
 #
-# Blablabla
-#
-# Date, authors, contact etc.
+# Feb 2022, Marcel Haas, datascience@marcelhaas.com
 #
 ################################################
+
+"""
+Unstable Populations: has your data drifted?
+
+Measuring whether your data has drifted through:
+- UPI: the Unstable Population Indicator: upi()
+- PSI: the Population Stability Index: psi()
+
+When two populations are supplied (see help of the functions for 
+more details), a (in)stability index is returned. Very low numbers
+(rule of thumb! Test for yourself!) of <~0.1 indicate that the 
+distributions in both populations are the same, while larger 
+numbers indicate larger difference between the two distributions.
+
+Version 0.1.0, Feb 2022, Marcel Haas (datascience@marcelhaas.com)
+"""
 
 import numpy as np
 import pandas as pd
