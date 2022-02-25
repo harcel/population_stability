@@ -25,10 +25,12 @@ import pandas as pd
 
 ################################################
 
+verbose_doc = "verbose: boolean. Set to True for verbosity."
+
 
 def upi(pop1, pop2, weight=True, bin_data=False, verbose=False):
     """
-    Docstring focusing on UPI only
+    Docstring focusing on UPI only.
     """
 
     return _indicator(
@@ -206,7 +208,9 @@ def _bin_data(aa, bb, bins=10, verbose=False):
     - list or array: bin boundaries, from min to max, half open on right,
         like numpy, when bins=[1, 2, 3, 4], the bin edges will be [1,2), [2,3)
         and [3,4]. Note that min and max of data can fall out of this!
-    - str: name of binning method recognized by np.histogram_bin_edges
+    - str: name of binning method recognized by np.histogram_bin_edges, one of:
+        auto, fd, doane, scott, stone, rice, sturges, sqrt,
+        see docs of numpy.histogram_bin_edges
     - True: binning will be determined by np.hist
 
     The bins will be the same for both populations.
