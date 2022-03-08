@@ -1,6 +1,6 @@
 # Unstable Populations
 #
-# Feb 2022, Marcel Haas, datascience@marcelhaas.com
+# Mar 2022, Marcel Haas, datascience@marcelhaas.com
 #
 ################################################
 
@@ -17,15 +17,14 @@ more details), a (in)stability index is returned. Very low numbers
 distributions in both populations are the same, while larger 
 numbers indicate larger difference between the two distributions.
 
-Version 0.1.1, Mar 2022, Marcel Haas (datascience@marcelhaas.com)
+Version 0.2.0, Mar 2022, Marcel Haas (datascience@marcelhaas.com)
 """
 
 import numpy as np
 import pandas as pd
+import pytest
 
 ################################################
-
-verbose_doc = "verbose: boolean. Set to True for verbosity."
 
 
 def upi(pop1, pop2, weight=True, bin_data=False, bins=10, verbose=False):
@@ -345,75 +344,4 @@ def _bin_data(aa, bb, bins=10, verbose=False):
 # For now:
 
 if __name__ == "__main__":
-    flat = np.array([10, 10, 10, 10])
-    empty = np.array([1, 1, 1, 1])
-    noise = np.array([9, 11, 9, 11])
-    noise_big = np.array([99, 101, 99, 101])
-
-    print(upi(flat, empty))
-    print(upi(flat, noise))
-    print(upi(flat, noise_big))
-    print(psi(flat, empty))
-    print(psi(flat, noise))
-    print(psi(flat, noise_big))
-
-    # Lists as entry
-    print("------")
-    flat = [10, 10, 10, 10]
-    empty = [1, 1, 1, 1]
-    noise = [9, 11, 9, 11]
-    noise_big = [99, 101, 99, 101]
-
-    print(upi(flat, empty))
-    print(upi(flat, noise))
-    print(upi(flat, noise_big))
-    print(psi(flat, empty))
-    print(psi(flat, noise))
-    print(psi(flat, noise_big))
-
-    # Dict as entry
-    print("------")
-    flat = {"0": 10, "1": 10, "2": 10, "3": 10}
-    noise = {"0": 11, "1": 9, "2": 11, "3": 9}
-    diff = {"0": 10, "1": 10, "4": 10}
-
-    print(upi(flat, noise))
-    print(upi(flat, diff))
-    print(psi(flat, noise))
-    # print(psi(flat, diff))  # Should give inf, and issues along the way!
-
-    # Series as entry
-    flat = pd.Series(flat)
-    noise = pd.Series(noise)
-    diff = pd.Series(diff)
-
-    print(upi(flat, noise))
-    print(upi(flat, diff))
-    print(psi(flat, noise))
-    # print(psi(flat, diff))  # Should give inf, and issues along the way!
-
-    # DataFrames as entry
-    print("------")
-    flat = pd.DataFrame(flat)
-    noise = pd.DataFrame(noise)
-    diff = pd.DataFrame(diff)
-
-    print(upi(flat, noise))
-    print(upi(flat, diff))
-    print(psi(flat, noise))
-
-    # Arrays to be binned as entry
-    print("--------")
-    flat_rd = np.random.uniform(0, 10, size=100)
-    large_flat_rd = np.random.uniform(0, 10, size=1000)
-    gauss_rd = np.random.normal(5, 1, size=100)
-
-    print(upi(flat_rd, large_flat_rd, bin_data=5, verbose=True))
-
-    # For tests later: upi(flat, noise) > upi(flat, noise_big) ; upi(flat, empty) = 0 ; also psi
-    # upi(lat, noise-big) < psi(flat, noise_big)
-    # Check for same value, independent of data type of pops
-    # Check for symmetry of the definitions
-
-    # Check for things that should throw an error:
-    # lists of unequal length, array of unequal length, DataFrame with more than one column
+    pytest.main()
