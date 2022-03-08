@@ -12,7 +12,7 @@ The UPI is explained in much more detail in an accompanying paper, but the main 
 
 The UPI works for continuous, ordinal and nominal data (continuous data will be binned) and is formally defined as
 
-$$
+```latex
 \textrm{UPI} = \,
 	\sum_{\textrm{bins, }i} w_i \cdot(f_{1,i} - f_{0,i}) \cdot \log \Big( \frac{f_{1,i} + 1/n_\textrm{tot} }{f_{0,i} + 1/n_\textrm{tot} } \Big)  \\
 \, \\
@@ -20,14 +20,14 @@ w_i = \begin{cases}
 \frac{N_\textrm{bins} }{2} (f_{1,i} + f_{0,i} )& \textrm{\small bins weighted by fraction}\\
 1 & \textrm{\small unweighted}
 \end{cases}
-$$
+```
 where $f_{0,i}$ and $f_{1,i}$ are the fraction of the entities in bin or category $i$ in the original and new population, respectively,  $n_\textrm{tot}$ is the number of entities in the original and new populations together and $N_\textrm{bins}$ is the number of bins or categories (over which the sum is taken). The weighting ($w_i$) can be chosen to be uniform, or based on the fraction of entities from both population in the bin/category (giving well populated bins/categories more weight in the indicator).
 
 
 ## Usage
 The UPI and PSI can be calculated for two populations as follows
 ```python
-from unstable_populations imort upi, psi
+from unstable_populations import upi, psi
 UPI = upi(pop1, pop2)
 PSI = psi(pop1, pop2)
 ```
