@@ -413,6 +413,7 @@ if __name__ == "__main__":
     # For tests later: upi(flat, noise) > upi(flat, noise_big) ; upi(flat, empty) = 0 ; also psi
     # upi(lat, noise-big) < psi(flat, noise_big)
     # Check for same value, independent of data type of pops
+    # Check for symmetry of the definitions
 
     # Check for things that should throw an error:
     # lists of unequal length, array of unequal length, DataFrame with more than one column

@@ -34,6 +34,9 @@ PSI = psi(pop1, pop2)
 
 There are optional keyword parameters that can let you do binning of the populations, or chose the weighting. The data can be provided in lists, numpy arrays, dictionaries, pandas Series or pandas DataFrames, see the documentation for more details.
 
+As a rule of thumb (but test for yourself!), a UPI or PSI < 0.1 indicates a similar population, the larger the values, the mroe dissimilar the populations are.
+
+
 ## Misc
 Developed and written by Marcel Haas, Joris Huese and Lisette Sibbald at the University of Amsterdam.
 Hosted at https://github.com/harcel/population_stability/
