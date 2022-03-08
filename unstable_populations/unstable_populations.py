@@ -17,7 +17,7 @@ more details), a (in)stability index is returned. Very low numbers
 distributions in both populations are the same, while larger 
 numbers indicate larger difference between the two distributions.
 
-Version 0.1.1, Feb 2022, Marcel Haas (datascience@marcelhaas.com)
+Version 0.1.1, Mar 2022, Marcel Haas (datascience@marcelhaas.com)
 """
 
 import numpy as np
