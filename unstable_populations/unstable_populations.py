@@ -17,7 +17,7 @@ more details), a (in)stability index is returned. Very low numbers
 distributions in both populations are the same, while larger 
 numbers indicate larger difference between the two distributions.
 
-Version 0.1.0, Feb 2022, Marcel Haas (datascience@marcelhaas.com)
+Version 0.1.1, Feb 2022, Marcel Haas (datascience@marcelhaas.com)
 """
 
 import numpy as np
@@ -29,26 +29,58 @@ verbose_doc = "verbose: boolean. Set to True for verbosity."
 
 
 def upi(pop1, pop2, weight=True, bin_data=False, bins=10, verbose=False):
-    """_summary_
+    """Calculate the Unstable Population Indicator,
+    which is based on counts of entities in a population divided over
+    either categories or bins (the bins can be made by the function).
+
+    Comparison can be weighted by number, such that
+    bins with many elements are weighted heavier.
 
     Parameters
     ----------
-    pop1
-        _description_
-    pop2
-        _description_
+    pop1, pop2
+        list, numpy.ndarray, dict, pandas.Series or pandas.DataFrame
+        containing the first and population, respectively.
+        They need to be of the same type. When they are:
+        - list/numpy.ndarray: either the full population (ints or floats)
+            that need to be binned (bin_data=True) or an ordered sequence of
+            (unnamed) categories/bins with bin counts or fractions of the
+            population in the bin or category.
+        - dict: dictionary with category names or bin values as keys and count
+            or fractions in those categories/bins as values. The two populations
+            will be matched based on keys and non-existing categories in either
+            population will be added with value 0.
+        - pandas.Series: Series with category names or bin values as index and
+            count or fractions in those categories/bins as values. The two
+            populations will be matched based on index and non-existing
+            categories in either population will be added with value 0.
+        - pandas.DataFrame: need to have only one column, will be converted to
+            Series, see definition of Series above.
+        All values that indicate a count or fraction are taken as is (no
+        consistency check on data type and normalization) and will be normalized
+        to sum to 1 (i.e. converted into fractions)
+
     weight, optional
-        _description_, by default True
+        Boolean indicating whether weighting by bin values is done,
+        by default True
     bin_data, optional
-        _description_, by default False
+        Boolean indicating whether data should be binned first,
+        by default False
     bins, optional
-        _description_, by default 10
+        When bin_data=True, this keyword indicates how binning is done, as
+        performed by numpy.histogram. It accepts an integer (number of bins),
+        list/numpy.ndarray with bin edges, a string indicating the method
+        (see numpy.histogram_bin_edges for documentation), or True (numpy
+        determines how to bin), by default 10
     verbose, optional
-        _description_, by default False
+        Boolean indicating whether extra information should be printed,
+        by default False
 
     Returns
     -------
-        _description_
+        UPI, a floating point number indicating the instability of the
+        population, going from one to the other (it is symmetric).
+        Rule of thumb: UPI<0.1 indicates a similar distribution.
     """
 
     return _indicator(
@@ -66,24 +98,52 @@ def upi(pop1, pop2, weight=True, bin_data=False, bins=10, verbose=False):
 
 
 def psi(pop1, pop2, bin_data=False, bins=10, verbose=False):
-    """_summary_
+    """Calculate the Population Stability Index,
+    which is based on counts of entities in a population divided over
+    either categories or bins (the bins can be made by the function).
 
     Parameters
     ----------
-    pop1
-        _description_
-    pop2
-        _description_
+    pop1, pop2
+        list, numpy.ndarray, dict, pandas.Series or pandas.DataFrame
+        containing the first and population, respectively.
+        They need to be of the same type. When they are:
+        - list/numpy.ndarray: either the full population (ints or floats)
+            that need to be binned (bin_data=True) or an ordered sequence of
+            (unnamed) categories/bins with bin counts or fractions of the
+            population in the bin or category.
+        - dict: dictionary with category names or bin values as keys and count
+            or fractions in those categories/bins as values. The two populations
+            will be matched based on keys and non-existing categories in either
+            population will be added with value 0.
+        - pandas.Series: Series with category names or bin values as index and
+            count or fractions in those categories/bins as values. The two
+            populations will be matched based on index and non-existing
+            categories in either population will be added with value 0.
+        - pandas.DataFrame: need to have only one column, will be converted to
+            Series, see definition of Series above.
+        All values that indicate a count or fraction are taken as is (no
+        consistency check on data type and normalization) and will be normalized
+        to sum to 1 (i.e. converted into fractions)
+
     bin_data, optional
-        _description_, by default False
+        Boolean indicating whether data should be binned first,
+        by default False
     bins, optional
-        _description_, by default 10
+        When bin_data=True, this keyword indicates how binning is done, as
+        performed by numpy.histogram. It accepts an integer (number of bins),
+        list/numpy.ndarray with bin edges, a string indicating the method
+        (see numpy.histogram_bin_edges for documentation), or True (numpy
+        determines how to bin), by default 10
     verbose, optional
-        _description_, by default False
+        Boolean indicating whether extra information should be printed,
+        by default False
 
     Returns
     -------
-        _description_
+        PSI, a floating point number indicating the instability of the
+        population, going from one to the other (it is symmetric).
+        Rule of thumb: PSI<0.1 indicates a similar distribution.
     """
 
     return _indicator(
@@ -107,27 +167,6 @@ def _indicator(
     enable: psi, upi, weihgted or not, etc.
 
     For definitions, see docstring of upi/psi.
-
-    Parameters
-    ----------
-    pop1
-        _description_
-    pop2
-        _description_
-    weight, optional
-        _description_, by default True
-    plus1, optional
-        _description_, by default True
-    bin_data, optional
-        _description_, by default False
-    bins, optional
-        _description_, by default 10
-    verbose, optional
-        _description_, by default False
-
-    Returns
-    -------
-        _description_
     """
 
     a, b = _prepare_data(pop1, pop2, bin_data=bin_data, bins=bins, verbose=verbose)
