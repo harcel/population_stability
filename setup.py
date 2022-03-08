@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name="unstable_populations",
-    version="0.1.1",
+    version="0.2.0",
     author="Marcel Haas, Joris Huese, Lisette Sibbald",
     author_email="datascience@marcelhaas.com",
     packages=["unstable_populations", "unstable_populations.test"],
