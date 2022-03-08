@@ -29,8 +29,26 @@ verbose_doc = "verbose: boolean. Set to True for verbosity."
 
 
 def upi(pop1, pop2, weight=True, bin_data=False, bins=10, verbose=False):
-    """
-    Docstring focusing on UPI only.
+    """_summary_
+
+    Parameters
+    ----------
+    pop1
+        _description_
+    pop2
+        _description_
+    weight, optional
+        _description_, by default True
+    bin_data, optional
+        _description_, by default False
+    bins, optional
+        _description_, by default 10
+    verbose, optional
+        _description_, by default False
+
+    Returns
+    -------
+        _description_
     """
 
     return _indicator(
@@ -48,8 +66,24 @@ def upi(pop1, pop2, weight=True, bin_data=False, bins=10, verbose=False):
 
 
 def psi(pop1, pop2, bin_data=False, bins=10, verbose=False):
-    """
-    Docstring focusing on psi only
+    """_summary_
+
+    Parameters
+    ----------
+    pop1
+        _description_
+    pop2
+        _description_
+    bin_data, optional
+        _description_, by default False
+    bins, optional
+        _description_, by default 10
+    verbose, optional
+        _description_, by default False
+
+    Returns
+    -------
+        _description_
     """
 
     return _indicator(
@@ -69,11 +103,31 @@ def psi(pop1, pop2, bin_data=False, bins=10, verbose=False):
 def _indicator(
     pop1, pop2, weight=True, plus1=True, bin_data=False, bins=10, verbose=False
 ):
-    """
-    Versatile code to calculate any measure we
+    """Versatile code to calculate any measure we
     enable: psi, upi, weihgted or not, etc.
 
     For definitions, see docstring of upi/psi.
+
+    Parameters
+    ----------
+    pop1
+        _description_
+    pop2
+        _description_
+    weight, optional
+        _description_, by default True
+    plus1, optional
+        _description_, by default True
+    bin_data, optional
+        _description_, by default False
+    bins, optional
+        _description_, by default 10
+    verbose, optional
+        _description_, by default False
+
+    Returns
+    -------
+        _description_
     """
 
     a, b = _prepare_data(pop1, pop2, bin_data=bin_data, bins=bins, verbose=verbose)
@@ -81,13 +135,15 @@ def _indicator(
     atot = a.sum()
     btot = b.sum()
 
+    ntot = atot + btot
+
     # Make fractions
     fa = a / atot
     fb = b / btot
 
     if plus1:
-        fal = (a + 1) / atot
-        fbl = (b + 1) / btot
+        fal = fa + (1 / ntot)
+        fbl = fb + (1 / ntot)
     else:
         fal = fa
         fbl = fb
@@ -136,10 +192,11 @@ def _prepare_data(pop1, pop2, bin_data=False, bins=10, verbose=False):
         else:
             raise TypeError("Data to be binned should be an np.ndarray or list!")
     else:
-        if len(pop1) != len(pop2):
-            raise ValueError(
-                "Populations need to be of same size, unless _bin_data != False"
-            )
+        if tp1 in (np.ndarray, list):
+            if len(pop1) != len(pop2):
+                raise ValueError(
+                    "Populations without category indicator need to be of same size, unless _bin_data != False"
+                )
 
         # Adapt data type when necessary
         if tp1 is np.ndarray:
@@ -279,7 +336,7 @@ if __name__ == "__main__":
     print("------")
     flat = {"0": 10, "1": 10, "2": 10, "3": 10}
     noise = {"0": 11, "1": 9, "2": 11, "3": 9}
-    diff = {"0": 10, "1": 10, "2": 10, "4": 10}
+    diff = {"0": 10, "1": 10, "4": 10}
 
     print(upi(flat, noise))
     print(upi(flat, diff))
