@@ -10,7 +10,7 @@ pip install -e .
 ## The Unstable Population Indicator
 The UPI is explained in much more detail in an accompanying paper, but the main idea is that it is an indicator that can be used when comparing two populations, to see if they are similar. Dissimilarity can be interpreted as data drift, for example, and may indicate a difference between a population some algorithm was trained on and a new population, for which the algorithm will be used.
 
-The UPI works for continuous, ordinal and nominal data (continuous data will be binned) and is formally defined as (LaTeX robably not rendered on Github, see your local version or the accompanying paper):
+The UPI works for continuous, ordinal and nominal data (continuous data will be binned) and is formally defined as (LaTeX probably not rendered on Github, see your local version or the accompanying paper):
 
 $$
 \textrm{UPI} = \,
